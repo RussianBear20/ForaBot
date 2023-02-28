@@ -45,6 +45,7 @@ class UserInterface:
         self.light_steps = 4
         self.start_focal_offset = 0
         self.shutdown_msg = '{"function":"shutdown","args":[]}'
+      # THE LINE BELOW WAS NOT IN GABBY'S CODE
         self.stop_msg = '{"function":"stop","args":[]}'
         self.numWells = 16
         self.interrupt_system = False
@@ -97,7 +98,7 @@ class UserInterface:
 
     def __stop(self):
         self.interrupt_system = True
-        self.write_queue.put(self.stop_msg)
+       # Not in Gabbys code: self.write_queue.put(self.stop_msg)
 
     def __callNextCommand(self, command):
         self.next_command = command

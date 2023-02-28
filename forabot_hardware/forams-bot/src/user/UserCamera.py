@@ -17,7 +17,11 @@ class UserCamera():
         self.initializeWebcam(usb_cam_loc)
         self.initializeMicroscopeCam()
         self.foram_detector = ForamDetector(num_focal_planes)
-        self.executor = ThreadPoolExecutor(None)
+        #self.root_dir = os.path.join(os.getcwd(),'..','data', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        #change data save location to usb: 
+        #self.root_dir = os.path.join([path name of location as a string], datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        self.root_dir = os.path.join(os.getcwd(), 'D:\ForaBot\ForabotData', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        # Change the path above to where to save files
         self.root_dir = os.path.join(os.getcwd(),'..','data', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
         os.makedirs(self.root_dir)
         self.foram_failed_str = '{{"function":"foramFailed", "args":["{0}","{1}"]}}'
@@ -62,8 +66,7 @@ class UserCamera():
         if self.isMicroscopeCamActive():
             save_loc = os.path.join(self.root_dir,'needle','{}_{}.tiff'.format(light_dir,focal_plane))
             os.makedirs(os.path.join(self.root_dir,'needle'), exist_ok=True)
-            im = self.microscope_cam.get_pil_image()
-            self.executor.submit(self.save_tiff, im, save_loc)
+            im = self.microscope_cam.get_save_tiff(save_loc)
             self.foram_detector.addNeedleCalib(im,focal_plane,light_dir)
         return self.run_next_automated_calibration_str
 
@@ -72,14 +75,13 @@ class UserCamera():
             base_dir = os.path.join(self.root_dir, foram_num, orientation_id)
             os.makedirs(base_dir, exist_ok=True)
             save_loc = os.path.join(base_dir,'{}_{}.tiff'.format(light_dir,focal_plane))
-            im = self.microscope_cam.get_pil_image()
-            self.executor.submit(self.save_tiff, im, save_loc)
+            im = self.microscope_cam.get_save_tiff(save_loc)
             if not self.isForamPresentMicroscope(im, focal_plane, light_dir):
                 return self.foram_failed_str.format('imaging_mid', orientation_id)
         return self.run_next_automated_str
-
-    def save_tiff(self, img, file_name):
-        img.save(file_name, 'TIFF')
+    # THIS FUNCTION BELOW MAY BE EXTRA
+ #   def save_tiff(self, img, file_name):
+  #      img.save(file_name, 'TIFF')
 
     def takeWebcamImage(self, foram_num, foram_loc, state):
         if self.isWebcamActive():

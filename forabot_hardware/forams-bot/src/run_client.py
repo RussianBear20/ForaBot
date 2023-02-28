@@ -41,8 +41,10 @@ def getUSBPorts():
                         is_vid = False
                     if is_vid:
                         win_devs.append(tmp[1].strip().replace('"','').replace('\'',''))
+                        counter+=1
                     if 'DirectShow video' in tmp[1]:
                         is_vid = True
+        win_devs.reverse()
         for i,d in enumerate(win_devs.reverse()):
             devices[d] = i
     return devices

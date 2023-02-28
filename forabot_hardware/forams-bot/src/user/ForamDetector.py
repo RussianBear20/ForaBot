@@ -17,16 +17,16 @@ class ForamDetector:
         self.microscope_detector.addNeedleCalib(np.float32(image), fp_i, ld_i)
 
     def isForamOnNeedle(self, img):
-        return self.needle_detector.classify(img)
+        return True #self.needle_detector.classify(img)
 
 
     def isForamInMicroscope(self, img, focal_plane, light_dir):
         fp_i = int(focal_plane)
         ld_i = int(light_dir)
-        return self.microscope_detector.classify_fp(np.float32(img), fp_i, ld_i)
+        return True #self.microscope_detector.classify_fp(np.float32(img), fp_i, ld_i)
 
     def isForamInFunnel(self, img):
-        return self.funnel_detector.classify(img)
+        return True #self.funnel_detector.classify(img)
 
 class Identifier(ABC):
 
@@ -58,10 +58,9 @@ class BlobIdentifier(Identifier):
         '''
 
     def classify(self, image):
-        img = image[350:550,700:950]
+        img = image[315:910,375:805]
         keypoints = self.detector.detect(img)
-        #return len(keypoints)>0
-        return True
+        return len(keypoints)>0
 
 '''
 class FeatureIdentifier(Identifier):
@@ -101,20 +100,18 @@ class ConvIdentifier(Identifier):
         self.method = eval(method)
         self.threshold = threshold
 
-    def classify(self, image_lg):
-        image = image_lg[400:550,550:700]
-        image = image_lg
+    def classify(self, image):
         ratio_vals = []
         res1 = cv2.matchTemplate(image, self.foram_needle, self.method)
         res2 = cv2.matchTemplate(image, self.no_foram_needle, self.method)
+
         min_val1, max_val1, min_loc1, max_loc1 = cv2.minMaxLoc(res1)
         min_val2, max_val2, min_loc2, max_loc2 = cv2.minMaxLoc(res2)
         if self.method is cv2.TM_SQDIFF_NORMED:
             ratio_vals.append(min_val2/(min_val1-sys.float_info.epsilon))
         else:
             ratio_vals.append(max_val1/(max_val2+sys.float_info.epsilon))
-        #return mean(ratio_vals) > self.threshold
-        return True
+        return mean(ratio_vals) > self.threshold
 
 class HistogramIdentifier(Identifier):
     def __init__(self, num_focal_planes, threshold=15000):

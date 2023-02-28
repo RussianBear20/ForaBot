@@ -7,17 +7,17 @@
           "isolation_suction":{
               "Motor Location": "motor3",
               "Motor Type": "SuctionMotor",
-              "Variable Dictionary": {"throttle": 0.6}
+              "Variable Dictionary": {}
           },
           "top_suction":{
               "Motor Location": "motor2",
               "Motor Type": "SuctionMotor",
-              "Variable Dictionary": {"throttle": 1.0}
+              "Variable Dictionary": {}
           },
           "imaging_suction":{
               "Motor Location": "motor1",
               "Motor Type": "SuctionMotor",
-              "Variable Dictionary": {"throttle": 0.6}
+              "Variable Dictionary": {}
           }
       }
     }
