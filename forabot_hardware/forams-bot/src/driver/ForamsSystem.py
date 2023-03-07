@@ -6,33 +6,33 @@ import time
 
 #Check/fix imaging indices and foram counter. Seems off
 class ForamsSystem:
-    def __init__(self, config_file_location):
+    def __init__(self, config_file_location): # Constructor that initializes vars
         self.config_file_location = config_file_location
         self.conf_dict = CU.parseFile(config_file_location)
 
         self.session_foram_count = 0
 
         dc_dict, servo_dict, light_dict, stepper_dict, vibration_dict = CU.partitionDicts(self.conf_dict)
-
+        # The below creates the controller objects
         self.dc_controller = DCController.DCController(dc_dict)
         self.servo_controller = ServoController.ServoController(servo_dict)
         self.light_controller = LightController.LightController(light_dict)
         self.stepper_controller = StepperController.StepperController(stepper_dict)
         self.vibration_controller = VibrationController.VibrationController(vibration_dict)
-
+        # The below sets up the various message templates
         self.request_ui_input = '{"end_point":"ui","function":"getNextUserCommand","args":[]}'
         self.request_imaging = '{{"end_point":"camera","function":"takeImage","args":["{0}","{1}","{2}","{3}"]}}'
         self.request_needle_imaging = '{{"end_point":"camera","function":"takeNeedleImage","args":["{0}","{1}"]}}'
         self.request_image_check = '{{"end_point":"camera","function":"takeWebcamImage","args":["{0}","{1}","{2}"]}}'
         self.request_classification = '{{"end_point": "camera","function":"classifyForam","args":["{0}"]}}'
         self.ret_message = self.request_ui_input
-
+        # The below homes all the motors
         self.homeSystem()
-
+        # The below initializes and runs the server
         self.ser_server = self.__initSerialServer()
         self.ser_server.run()
 
-    def __initSerialServer(self):
+    def __initSerialServer(self): # Initialize the server for communication with other parts of the system
         try:
             message_handler = ServerMessageHandler(self)
             server = sServer(message_handler)
@@ -40,9 +40,9 @@ class ForamsSystem:
         except:
             raise RuntimeError("Initialization of server failed for system type: " + self.__class__.__name__)
 
-    def returnMessage(self, message):
+    def returnMessage(self, message): # Returns given message
         return message
-
+    # The below method initializes the system with the given parameters
     def startSystem(self, num_forams, failure_threshold, image_orientations,
                         light_directions, lights_per_img, light_steps,
                         num_focal_planes, start_focal_offset, focal_plane_step):
@@ -61,14 +61,14 @@ class ForamsSystem:
         #self.session_foram_count=1
         ###
         self.ret_message = None
-        if self.session_foram_count == 0:
+        if self.session_foram_count == 0: # Moves the servo to imaging pos
             self.servo_controller.moveToImaging()
             self.calibration_state = {'curr_img':0}
             self.calibration_fns = [self.runNextCalibrationStep]*(self.light_directions*self.num_focal_planes)
             return self.runNextCalibrationStep()
         return self.runNextAutomatedStep()
 
-    def homeSystem(self):
+    def homeSystem(self): # This method homes the motors and turns off the suction
         self.stepper_controller.homePins()
         self.dc_controller.imagingSuctionOff()
         self.dc_controller.isolationSuctionOff()
@@ -112,16 +112,16 @@ class ForamsSystem:
             args=[]
         return msg
 
-    def checkRunComplete(self):
+    def checkRunComplete(self): # Checks if the run is complete
         return self.run_state['num_forams'] <= self.run_state['curr_foram'] and self.run_state['num_forams'] > 0
 
-    def checkSystemFailure(self):
+    def checkSystemFailure(self): # Checks if the number of failures is over the threshold
         return self.run_state['num_foram_failures'] >= self.failure_threshold
 
-    def requestClassification(self):
+    def requestClassification(self): # Requests classification of current foram
         return self.request_classification.format(self.run_state['curr_foram'])
 
-    def sortForam(self, well_num):
+    def sortForam(self, well_num): # This method does the motor commands for moving the foram around the system
         self.run_state['curr_img'] = 0
         self.servo_controller.moveWellToIdx(well_num)
         self.servo_controller.moveToImagingPick()
@@ -138,7 +138,7 @@ class ForamsSystem:
         return self.request_image_check.format(self.session_foram_count, 'imaging_end', well_num)
 
 
-    def imageForamStart(self, tmp=[]):
+    def imageForamStart(self, tmp=[]): # This method moves the foram to the imaging well
         self.servo_controller.moveToImaging()
         self.dc_controller.imagingSuctionOn()
         self.vibration_controller.imagingVibrationPulse()
@@ -146,7 +146,7 @@ class ForamsSystem:
         self.dc_controller.imagingSuctionOff()
         return None
 
-    def foramImaging(self):
+    def foramImaging(self): # This takes images of the forams
         light_dir = self.run_state['curr_img']%self.light_directions
         focal_plane = (self.run_state['curr_img']//self.light_directions) % self.num_focal_planes
         orientation_id = self.run_state['curr_img']//(self.light_directions * self.num_focal_planes)
@@ -162,12 +162,12 @@ class ForamsSystem:
             self.run_state['curr_fn'] -= 1
         return self.request_imaging.format(self.session_foram_count, light_dir, focal_plane, orientation_id)
 
-    def imageForamEnd(self):
+    def imageForamEnd(self): # This method occurs after the imaging is done
         self.resetImagingNeedle()
         self.stepper_controller.focalBottom()
         return None
     
-    def resetImagingNeedle(self):
+    def resetImagingNeedle(self): # This method resets the imaging needle is failure occurs
         self.light_controller.lightsOff()
         self.dc_controller.imagingSuctionOff()
         self.stepper_controller.imagingBottom()
@@ -177,18 +177,18 @@ class ForamsSystem:
         time.sleep(0.1)
         self.vibration_controller.imagingVibrationPulse()
 
-    def imageForamChangeOrientation(self):
+    def imageForamChangeOrientation(self): # This method pics up the foram again for imaging
         self.resetImagingNeedle()
         self.imageForamStart()
 
-    def pickForam(self, state_var=0):
+    def pickForam(self, state_var=0): # This method sucks up the foram from isolation well
         self.servo_controller.moveToIsolationIsolationWebcam()
         self.vibration_controller.isolationVibrationPulse()
         self.dc_controller.isolationSuctionOn()
         self.stepper_controller.isolationCheck()
         return self.request_image_check.format(self.session_foram_count, 'isolation_needle', state_var)
 
-    def resetIsolationPick(self, state):
+    def resetIsolationPick(self, state): # This method resets the isolation suction and lowers needle for pickup again
         self.dc_controller.isolationSuctionOff()
         self.stepper_controller.isolationBottom()
 
@@ -234,14 +234,14 @@ class ForamsSystem:
             ret_message = self.ret_message
         return ret_message
 
-    def attemptTransferDrop(self, attempt_num):
+    def attemptTransferDrop(self, attempt_num): # This method drops the foram to the imaging well if failures occur
         self.servo_controller.moveToImagingPick()
         self.dc_controller.dropForam()
         self.vibration_controller.topVibrationPulse()
         self.servo_controller.moveToImagingWebcam()
         return self.request_image_check.format(self.session_foram_count, 'imaging_start', attempt_num)
 
-    def transferIsolationToImaging(self):
+    def transferIsolationToImaging(self): # This method moves the foram from isolation to imaging well 
         self.servo_controller.moveToIsolationPick()
         self.stepper_controller.isolationHandoff()
         self.dc_controller.isolationHandoff()

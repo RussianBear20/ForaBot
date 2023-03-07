@@ -7,14 +7,14 @@ from threading import Thread
 import sys
 import subprocess
 
-def getCOMPorts():
+def getCOMPorts(): # This returns a list of the currently connected serial ports
     ports = list(serial.tools.list_ports.comports())
     result = []
     for port in ports:
         result.append(port)
     return result
 
-def getUSBPorts():
+def getUSBPorts(): # This returns a dictionary of the currently connected USB devices
     devices = {}
     directory = 'x64' if sys.maxsize > 2 ** 32 else 'x86'
     if sys.platform.startswith('linux'):
@@ -49,7 +49,7 @@ def getUSBPorts():
             devices[d] = i
     return devices
 
-if __name__=='__main__':
+if __name__=='__main__': # This sets up the serial, USB, and UI coms 
     q_out = Queue()
     ui_q_in = Queue()
     cam_q_in = Queue()

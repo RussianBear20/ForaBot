@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 import sys
 from statistics import mean
-
+# THIS IS NOT IMPLEMENTED IN THE CODE YET THE FORAM IS JUST DROPPED OFF IN A RANDOM WELL
 class ForamDetector:
 
     def __init__(self, num_focal_planes):

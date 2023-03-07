@@ -1,6 +1,6 @@
 import time
 from driver.ForamsSystem import ForamsSystem
-
+# THIS IS A NONESSENTIAL TEST FILE
 class ForamsSystemTesting(ForamsSystem):
     def __init__(self, config_file_location):
         self.is_present_funnel_msg = '{"end_point":"camera","function":"isForamInFunnel","args":[]}'

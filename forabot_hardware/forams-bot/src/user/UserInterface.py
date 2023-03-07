@@ -3,6 +3,7 @@ from tkinter import ttk, messagebox
 import json
 
 class UserInterface:
+    # The below intializes the variables 
     def __init__(self, write_queue, read_queue, ports, usb_devs):
         self.__initializeUIVariables()
         self.root = Tk()
@@ -13,17 +14,17 @@ class UserInterface:
         self.read_queue = read_queue
         self.createChannelWindow(ports, usb_devs)
         self.enableUI()
-
+    # The message below is displayed when trying to quit
     def __onClose(self):
         if messagebox.askokcancel("Quit", "Do you want to quit?"):
             self.write_queue.put(self.shutdown_msg)
             self.root.destroy()
-
+    # The below creates a run tab on the UI
     def __createRunTab(self):
         tab = self.__createTab("Run")
         self.__addRunRadioSelects(tab)
         self.__addRunStopButtons(tab)
-
+    # 
     def __createTab(self, title):
         tab = ttk.Frame(self.notebook, name=title.lower())
         self.notebook.add(tab, text=title)
@@ -80,7 +81,7 @@ class UserInterface:
         stopcmd = tab.register(self.__stop)
         ttk.Button(tab, text="Run", name="button_run", command=runcmd).grid(column=2, row=11, sticky=E)
         ttk.Button(tab, text="Stop", name="button_stop", command=stopcmd).grid(column=3, row=11, sticky=W)
-
+    # The below starts the system
     def __run(self):
         focal_plane_step = self.getFocalPlaneStep()
         if self.run_num_forams.get():
@@ -93,9 +94,10 @@ class UserInterface:
         32 micro per step
         720 um dof coverage (72 * 10 um step size)
     '''
+    # The below returns the value given below
     def getFocalPlaneStep(self):
         return (32*90) // self.num_focal_planes
-
+    # The below interrupts the system
     def __stop(self):
         self.interrupt_system = True
        # Not in Gabbys code: self.write_queue.put(self.stop_msg)

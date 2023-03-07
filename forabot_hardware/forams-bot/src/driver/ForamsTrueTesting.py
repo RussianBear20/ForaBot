@@ -2,7 +2,7 @@ import time
 from driver.controller import ForamsMotorController, ForamsServoController
 import config_setup.ConfigUtility as CU
 from driver.ForamsSystem import ForamsSystem
-
+# THIS IS A NON ESSENTIAL FILE
 class ForamsTrueTesting(ForamsSystem):
     def __init__(self):
         self.conf_dict = CU.parseFile('/home/pi/Forams/forams-bot/configurations/config_test_1.json')

@@ -2,23 +2,23 @@ import subprocess
 import time
 
 class LimitedServo():
-    def __init__(self, motor_idx, position_dict):
+    def __init__(self, motor_idx, position_dict): # Constructor that sets Init values
         self.position_dict = position_dict
         self.motor_idx = motor_idx
 
-    def turnTo(self, location_name):
+    def turnTo(self, location_name): # Turns servo to location based on dictionary value
         try:
             # Multiple of 4 because Maestro Control Center is us and UscCmd is 1/4 us
             self.usccmd('--servo', '{},{}'.format(self.motor_idx,4*self.position_dict[location_name]))
         except:
             raise Exception("Location Name: {} is not a known position for servo {}".format(location_name, self.motor_idx))
-        self.waitComplete(location_name)
+        self.waitComplete(location_name) # Wait till motion done
 
     @staticmethod
     def usccmd(*args):
         return subprocess.check_output(['UscCmd'] + list(args))
 
-    def waitComplete(self, location_name):
+    def waitComplete(self, location_name): # This method moves the motor and waits to check if it is moved correctly
       is_complete = False
       num_checks = 0
       us_position = self.position_dict[location_name] * 4
