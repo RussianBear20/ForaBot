@@ -53,19 +53,27 @@ if __name__=='__main__': # This sets up the serial, USB, and UI coms
     q_out = Queue()
     ui_q_in = Queue()
     cam_q_in = Queue()
+    # The above sets up queues for interthread communication
     ports = getCOMPorts()
     webcams = getUSBPorts()
+    # The above retrieves the communication and usb ports
     user_interface = UserInterface.UserInterface(q_out, ui_q_in, ports, webcams)
     channel = user_interface.getChannel()
+
     camera = UserCamera.UserCamera(q_out, cam_q_in, webcams[user_interface.usb_cam_loc.get()], user_interface.num_focal_planes)
     message_handler = ClientMessageHandler.ClientMessageHandler(user_interface, camera, q_out)
+    
     client = SerialClient.SerialClient(channel, message_handler)
+    
     t1 = Thread(target=getattr(camera,"run"))
     t2 = Thread(target=getattr(client,"run"))
     t1.start()
     t2.start()
+    
     user_interface.root.mainloop()
+    
     t1.join()
     print('Camera Thread Closed')
     t2.join()
     print('Communication Thread Closed')
+    # The above waits for the threads to finish 
