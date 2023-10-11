@@ -1,8 +1,6 @@
-# Classifier-6Species
-## Related publications
-B. Zhong, Q. Ge, B. Kanakiya, R. Mitra, T. Marchitto, E. Lobaton, “A Comparative Study of Image Classification Algorithms for Foraminifera Identification,” IEEE Symp. Series on Computational Intelligence (SSCI), 2017. [Makes use of NCSU-CUB Foram Images 01 Dataset]
-
-Q. Ge, B. Zhong, B. Kanakiya, R. Mitra, T. Marchitto, E. Lobaton, “Coarse-to-Fine Foraminifera Image Segmentation through 3D and Deep Features,” IEEE Symp. Series on Computational Intelligence (SSCI), 2017. [Makes use of NCSU-CUB Foram Labels 01 Dataset]
+# This repo is a continuation of The Forabot research previously done by the constributors at https://github.com/ARoS-NCSU/ForaBot
+## Overview:
+We are currently in the progress of switching the Raspberry Pi we used for a Jetson Orin Nano. We are also converting the original Python process of this robot into ROS2 Foxy code. Later on this research will be passed along for the purpose of implementing a ML Classification node that will classify the species of forams for accurate sorting. The hardware must also be converted into mostly 3d printed parts due to supply chain issues with the current hardware parts list. 
 
 # forabot_hardware
 ## Related publications
