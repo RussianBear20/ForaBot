@@ -1,0 +1,31 @@
+{
+    "ForamsSystem":{
+        "methods":{
+            "imageForam":{
+                "args":[]
+            },
+            "testImaging":{
+                "args":[]            
+            },
+            "updateConfiguration":{
+                "args":[]
+            },
+            "saveConfiguration":{
+                "args":["save_loc"]
+            }
+        }
+    },
+    "ForamsSystemTesting":{
+        "methods":{
+            "testIsolation":{
+                "args":[]
+            },
+            "transferImagingToIsolation":{
+                "args":[]        
+            },
+            "testTransferImagingToIsolation":{
+                "args":[]
+            }
+        }
+    }
+}

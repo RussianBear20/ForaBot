@@ -1,0 +1,153 @@
+import random
+from user.utilities.drivers.camera import ToupCamCamera
+from user.ForamDetector import ForamDetector
+import cv2
+import time
+import datetime
+import numpy as np
+import os
+from PIL import Image
+from concurrent.futures import ThreadPoolExecutor
+
+class UserCamera():
+    # Constructor initializes vars
+    def __init__(self, write_queue, read_queue, usb_cam_loc, num_focal_planes):
+        self.write_queue = write_queue
+        self.read_queue = read_queue
+        self.is_running = True
+        self.initializeWebcam(usb_cam_loc)
+        self.initializeMicroscopeCam()
+        self.foram_detector = ForamDetector(num_focal_planes)
+        #self.root_dir = os.path.join(os.getcwd(),'..','data', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        #change data save location to usb: 
+        #self.root_dir = os.path.join([path name of location as a string], datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        self.root_dir = os.path.join(os.getcwd(), 'D:\ForaBot\ForabotData', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        # Change the path above to where to save files
+        self.root_dir = os.path.join(os.getcwd(),'..','data', datetime.datetime.now().strftime('%Y%m%d_%H%M'))
+        os.makedirs(self.root_dir)
+        self.foram_failed_str = '{{"function":"foramFailed", "args":["{0}","{1}"]}}'
+        self.run_next_automated_str = '{"function":"runNextAutomatedStep", "args":[]}'
+        self.run_next_automated_calibration_str = '{"function":"runNextCalibrationStep", "args":[]}'
+
+    def initializeMicroscopeCam(self): # This initializes the microscope camera
+        try:
+            cam = ToupCamCamera(resolution=3)
+            cam.open()
+            cam.set_auto_exposure(False)
+            cam.set_exposure_time(200000)
+            cam.set_gain(200)
+            self.microscope_cam = cam
+        except:
+            raise RuntimeError("Unable to initialize microscope camera")
+
+    def initializeWebcam(self, loc): # This initializes the webcam
+        cap = cv2.VideoCapture(loc)
+        if cap.isOpened():
+            self.webcam = cap
+            #set buffer size
+            self.webcam.set(cv2.CAP_PROP_BUFFERSIZE,1)
+            for i in range(5):
+                ret = self.webcam.grab()
+            if ret is None:
+            	raise RuntimeError("Unable to grab from webcam")
+        else:
+            raise RuntimeError("Unable to initialize webcam")
+
+    def run(self): # This executes the read messages while the camera is running
+        while self.is_running:
+            msg = self.__executeReadMessages()
+            self.write_queue.put(msg)
+
+    def __executeReadMessages(self): # This retrieves a message from the read queue executes it and returns the result
+        fn, args = self.read_queue.get()
+        message = fn(*args)
+        return message
+    # The below takes a picture of the needle and saves it, and then runs next step
+    def takeNeedleImage(self, light_dir, focal_plane): # Takes image of foram on top of needle
+        if self.isMicroscopeCamActive():
+            save_loc = os.path.join(self.root_dir,'needle','{}_{}.tiff'.format(light_dir,focal_plane))
+            os.makedirs(os.path.join(self.root_dir,'needle'), exist_ok=True)
+            im = self.microscope_cam.get_save_tiff(save_loc)
+            self.foram_detector.addNeedleCalib(im,focal_plane,light_dir)
+        return self.run_next_automated_calibration_str
+    # The below takes an image of the foram with the microscope, saves the image, checks if the foram is in the image or returns a failure if not present
+    def takeImage(self, foram_num, light_dir, focal_plane, orientation_id):
+        if self.isMicroscopeCamActive():
+            base_dir = os.path.join(self.root_dir, foram_num, orientation_id)
+            os.makedirs(base_dir, exist_ok=True)
+            save_loc = os.path.join(base_dir,'{}_{}.tiff'.format(light_dir,focal_plane))
+            im = self.microscope_cam.get_save_tiff(save_loc)
+            if not self.isForamPresentMicroscope(im, focal_plane, light_dir):
+                return self.foram_failed_str.format('imaging_mid', orientation_id)
+        return self.run_next_automated_str
+    # THIS FUNCTION BELOW MAY BE EXTRA
+ #   def save_tiff(self, img, file_name):
+  #      img.save(file_name, 'TIFF')
+    # The below takes an image of the foram with the webcam, saves the image, and checks if the foram is in the image, else it fails
+    def takeWebcamImage(self, foram_num, foram_loc, state):
+        if self.isWebcamActive():
+            base_dir = os.path.join(self.root_dir, foram_num)
+            os.makedirs(base_dir, exist_ok=True)
+            save_loc = os.path.join(base_dir,foram_loc+'.png')
+            #ret, frame = self.webcam.read()
+            for i in range(2):
+                ret = self.webcam.grab()
+
+            if ret:
+                ret, frame = self.webcam.retrieve()
+            else:
+            	print('Failed to grab from webcam')
+            if ret:
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                cv2.imwrite(save_loc,gray)
+                if self.isForamPresent(gray, foram_loc):
+                    return self.run_next_automated_str
+                else:
+                    print('Foram {} failed at {}'.format(foram_num, foram_loc))
+                    return self.foram_failed_str.format(foram_loc, state)
+            else:
+            	print('Failed to retrieve from webcam')
+        print('Failed to connect to webcam')
+        return self.foram_failed_str.format(foram_loc, state)
+
+    def isForamPresent(self, gray, foram_loc): # THIS MAY NEED TO BE FIXED, Should check image of forams
+        if foram_loc == 'isolation_needle':
+            return self.isForamPresentNeedle(gray)
+        else:
+            check_foram = self.isForamPresentFunnel(gray)
+            if foram_loc == 'imaging_start':
+                return check_foram
+            elif foram_loc == 'imaging_end':
+                return not check_foram
+            else:
+                raise Exception("What is check for foram at: {}".format(foram_loc))
+
+    def isForamPresentNeedle(self, img): # This checks if the foram is on the needle
+        return self.foram_detector.isForamOnNeedle(img)
+
+    def isForamPresentFunnel(self, img): # This checks if a foram is in the funnel
+        return self.foram_detector.isForamInFunnel(img)
+
+    def isForamPresentMicroscope(self, img, focal_plane, light_dir): # This checks if the 
+        return self.foram_detector.isForamInMicroscope(img, focal_plane, light_dir)
+
+    def classifyForam(self, foram_num): # THIS NEEDS TO BE IMPLEMENTED
+        #run classifier on proper foram dir
+        well_num = random.randint(0,15)
+        return '{{"function":"runNextAutomatedStep", "args":[[{}]]}}'.format(well_num)
+
+    def isWebcamActive(self): # Checks if the webcam is on
+        return self.webcam is not None
+
+    def isMicroscopeCamActive(self): # Checks if the microscope is on
+        return self.microscope_cam is not None
+
+    def releaseWebcam(self): # This releases the cv2 webcam
+        if self.isWebcamActive():
+            self.webcam.release()
+
+    def shutdown(self): # This shuts down the system
+        self.executor.shutdown(wait=True, cancel_futures=False)
+        self.releaseWebcam()
+        cv2.destroyAllWindows()
+        self.is_running = False
