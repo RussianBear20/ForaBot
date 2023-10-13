@@ -6,7 +6,7 @@ Prereqs: Download tic gui software at https://www.pololu.com/docs/0J71/3.2 and d
 
 To use this repo, you must clone it and then at the top level of the directory run 
 $ bash ./setup.sh 	
-all packages must be built with
+and then after that all packages must be built with
 ~/ForabotResearch/ros2_foxy_workspace$ colcon build -packages--select <package names>
 ~/ForabotResearch/ros2_foxy_workspace$ source ./install/setup.bash
 
