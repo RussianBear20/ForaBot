@@ -5,7 +5,7 @@ We are currently in the progress of switching the Raspberry Pi we used for a Jet
 Prereqs: Download tic gui software at https://www.pololu.com/docs/0J71/3.2 and download maestro controller at https://www.pololu.com/docs/0J40/3.b 
 
 To use this repo, you must clone it and then at the top level of the directory run 
-$ bash ./setup.sh 
+$ bash ./setup.sh 	
 all packages must be built with
 ~/ForabotResearch/ros2_foxy_workspace$ colcon build -packages--select <package names>
 ~/ForabotResearch/ros2_foxy_workspace$ source ./install/setup.bash
