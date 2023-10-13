@@ -1,0 +1,3 @@
+[console_scripts]
+csi_camera_node = csi_camera_pkg.csi_camera_node:main
+

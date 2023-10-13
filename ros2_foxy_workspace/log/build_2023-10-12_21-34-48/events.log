@@ -1,0 +1,60 @@
+[0.000000] (-) TimerEvent: {}
+[0.000483] (-) JobUnselected: {'identifier': 'my_webcam_package'}
+[0.000891] (csi_camera_pkg) JobQueued: {'identifier': 'csi_camera_pkg', 'dependencies': OrderedDict()}
+[0.001444] (csi_camera_pkg) JobStarted: {'identifier': 'csi_camera_pkg'}
+[0.099386] (-) TimerEvent: {}
+[0.200928] (-) TimerEvent: {}
+[0.302184] (-) TimerEvent: {}
+[0.403127] (-) TimerEvent: {}
+[0.503875] (-) TimerEvent: {}
+[0.604892] (-) TimerEvent: {}
+[0.705484] (-) TimerEvent: {}
+[0.806162] (-) TimerEvent: {}
+[0.906917] (-) TimerEvent: {}
+[1.008416] (-) TimerEvent: {}
+[1.109947] (-) TimerEvent: {}
+[1.211644] (-) TimerEvent: {}
+[1.312359] (-) TimerEvent: {}
+[1.413145] (-) TimerEvent: {}
+[1.513738] (-) TimerEvent: {}
+[1.614335] (-) TimerEvent: {}
+[1.714924] (-) TimerEvent: {}
+[1.815492] (-) TimerEvent: {}
+[1.916051] (-) TimerEvent: {}
+[2.016647] (-) TimerEvent: {}
+[2.056671] (csi_camera_pkg) Command: {'cmd': ['/usr/bin/python3', 'setup.py', 'egg_info', '--egg-base', '../../build/csi_camera_pkg', 'build', '--build-base', '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build', 'install', '--record', '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/install.log', '--install-scripts', '$base/lib/csi_camera_pkg', '--single-version-externally-managed'], 'cwd': '/home/aros/ForaBotResearch/ros2_foxy_workspace/src/csi_camera_pkg', 'env': {'GJS_DEBUG_TOPICS': 'JS ERROR;JS LOG', 'LESSOPEN': '| /usr/bin/lesspipe %s', 'USER': 'aros', 'SSH_AGENT_PID': '2480', 'XDG_SESSION_TYPE': 'x11', 'SHLVL': '1', 'LD_LIBRARY_PATH': '/opt/ros/foxy/opt/yaml_cpp_vendor/lib:/opt/ros/foxy/opt/rviz_ogre_vendor/lib:/opt/ros/foxy/lib/aarch64-linux-gnu:/opt/ros/foxy/lib:/usr/local/cuda-11.4/lib64:', 'HOME': '/home/aros', 'OLDPWD': '/home/aros/ForaBotResearch/ros2_foxy_workspace/src', 'DESKTOP_SESSION': 'ubuntu', 'ROS_PYTHON_VERSION': '3', 'GNOME_SHELL_SESSION_MODE': 'ubuntu', 'GTK_MODULES': 'gail:atk-bridge', 'MANAGERPID': '2308', 'DBUS_SESSION_BUS_ADDRESS': 'unix:path=/run/user/1000/bus', 'COLORTERM': 'truecolor', 'IM_CONFIG_PHASE': '1', 'COLCON_PREFIX_PATH': '/home/aros/ForaBotResearch/ros2_foxy_workspace/install', 'ROS_DISTRO': 'foxy', 'LOGNAME': 'aros', 'JOURNAL_STREAM': '8:54945', '_': '/usr/bin/colcon', 'ROS_VERSION': '2', 'XDG_SESSION_CLASS': 'user', 'USERNAME': 'aros', 'TERM': 'xterm-256color', 'GNOME_DESKTOP_SESSION_ID': 'this-is-deprecated', 'ROS_LOCALHOST_ONLY': '0', 'WINDOWPATH': '2', 'PATH': '/opt/ros/foxy/bin:/usr/local/cuda-11.4/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin', 'SESSION_MANAGER': 'local/ubuntu:@/tmp/.ICE-unix/2515,unix/ubuntu:/tmp/.ICE-unix/2515', 'INVOCATION_ID': '0609778d946b4ad8870b2271826070f0', 'XDG_MENU_PREFIX': 'gnome-', 'GNOME_TERMINAL_SCREEN': '/org/gnome/Terminal/screen/fefac137_2ff1_4d0c_a177_fed43e03ddef', 'XDG_RUNTIME_DIR': '/run/user/1000', 'DISPLAY': ':1', 'LANG': 'en_US.UTF-8', 'XDG_CURRENT_DESKTOP': 'ubuntu:GNOME', 'XMODIFIERS': '@im=ibus', 'XDG_SESSION_DESKTOP': 'ubuntu', 'XAUTHORITY': '/run/user/1000/gdm/Xauthority', 'LS_COLORS': 'rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:', 'GNOME_TERMINAL_SERVICE': ':1.79', 'SSH_AUTH_SOCK': '/run/user/1000/keyring/ssh', 'AMENT_PREFIX_PATH': '/home/aros/ForaBotResearch/ros2_foxy_workspace/install/my_webcam_package:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg:/opt/ros/foxy', 'SHELL': '/bin/bash', 'QT_ACCESSIBILITY': '1', 'GDMSESSION': 'ubuntu', 'LESSCLOSE': '/usr/bin/lesspipe %s %s', 'GPG_AGENT_INFO': '/run/user/1000/gnupg/S.gpg-agent:0:1', 'GJS_DEBUG_OUTPUT': 'stderr', 'QT_IM_MODULE': 'ibus', 'PWD': '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg', 'LC_ALL': 'en_US.UTF-8', 'XDG_CONFIG_DIRS': '/etc/xdg/xdg-ubuntu:/etc/xdg', 'XDG_DATA_DIRS': '/usr/share/ubuntu:/usr/local/share/:/usr/share/:/var/lib/snapd/desktop', 'PYTHONPATH': '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/prefix_override:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/my_webcam_package/lib/python3.8/site-packages:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages:/opt/ros/foxy/lib/python3.8/site-packages', 'COLCON': '1', 'VTE_VERSION': '6003'}, 'shell': False}
+[2.116919] (-) TimerEvent: {}
+[2.217737] (-) TimerEvent: {}
+[2.318361] (-) TimerEvent: {}
+[2.419017] (-) TimerEvent: {}
+[2.519768] (-) TimerEvent: {}
+[2.543595] (csi_camera_pkg) StdoutLine: {'line': b'running egg_info\n'}
+[2.545655] (csi_camera_pkg) StdoutLine: {'line': b'writing ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/PKG-INFO\n'}
+[2.546952] (csi_camera_pkg) StdoutLine: {'line': b'writing dependency_links to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/dependency_links.txt\n'}
+[2.547456] (csi_camera_pkg) StdoutLine: {'line': b'writing entry points to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/entry_points.txt\n'}
+[2.547745] (csi_camera_pkg) StdoutLine: {'line': b'writing requirements to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/requires.txt\n'}
+[2.548003] (csi_camera_pkg) StdoutLine: {'line': b'writing top-level names to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/top_level.txt\n'}
+[2.619922] (-) TimerEvent: {}
+[2.622942] (csi_camera_pkg) StdoutLine: {'line': b"reading manifest file '../../build/csi_camera_pkg/csi_camera_pkg.egg-info/SOURCES.txt'\n"}
+[2.625325] (csi_camera_pkg) StdoutLine: {'line': b"writing manifest file '../../build/csi_camera_pkg/csi_camera_pkg.egg-info/SOURCES.txt'\n"}
+[2.625766] (csi_camera_pkg) StdoutLine: {'line': b'running build\n'}
+[2.626010] (csi_camera_pkg) StdoutLine: {'line': b'running build_py\n'}
+[2.626483] (csi_camera_pkg) StdoutLine: {'line': b'copying csi_camera_pkg/csi_camera_node.py -> /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build/lib/csi_camera_pkg\n'}
+[2.627288] (csi_camera_pkg) StdoutLine: {'line': b'running install\n'}
+[2.629439] (csi_camera_pkg) StdoutLine: {'line': b'running install_lib\n'}
+[2.631477] (csi_camera_pkg) StdoutLine: {'line': b'copying /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build/lib/csi_camera_pkg/csi_camera_node.py -> /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg\n'}
+[2.632770] (csi_camera_pkg) StdoutLine: {'line': b'byte-compiling /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg/csi_camera_node.py to csi_camera_node.cpython-38.pyc\n'}
+[2.635547] (csi_camera_pkg) StdoutLine: {'line': b'running install_data\n'}
+[2.636835] (csi_camera_pkg) StdoutLine: {'line': b'running install_egg_info\n'}
+[2.641301] (csi_camera_pkg) StdoutLine: {'line': b"removing '/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg-0.0.0-py3.8.egg-info' (and everything under it)\n"}
+[2.642036] (csi_camera_pkg) StdoutLine: {'line': b'Copying ../../build/csi_camera_pkg/csi_camera_pkg.egg-info to /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg-0.0.0-py3.8.egg-info\n'}
+[2.644568] (csi_camera_pkg) StdoutLine: {'line': b'running install_scripts\n'}
+[2.686525] (csi_camera_pkg) StdoutLine: {'line': b'Installing csi_camera_node script to /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/csi_camera_pkg\n'}
+[2.687457] (csi_camera_pkg) StdoutLine: {'line': b"writing list of installed files to '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/install.log'\n"}
+[2.720138] (-) TimerEvent: {}
+[2.755096] (csi_camera_pkg) CommandEnded: {'returncode': 0}
+[2.820604] (-) TimerEvent: {}
+[2.923553] (-) TimerEvent: {}
+[3.024130] (-) TimerEvent: {}
+[3.049105] (csi_camera_pkg) JobEnded: {'identifier': 'csi_camera_pkg', 'rc': 0}
+[3.050679] (-) EventReactorShutdown: {}

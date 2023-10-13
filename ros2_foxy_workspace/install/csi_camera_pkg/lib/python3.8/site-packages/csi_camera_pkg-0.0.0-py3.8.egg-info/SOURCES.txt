@@ -1,0 +1,16 @@
+package.xml
+setup.cfg
+setup.py
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/PKG-INFO
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/SOURCES.txt
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/dependency_links.txt
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/entry_points.txt
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/requires.txt
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/top_level.txt
+../../build/csi_camera_pkg/csi_camera_pkg.egg-info/zip-safe
+csi_camera_pkg/__init__.py
+csi_camera_pkg/csi_camera_node.py
+resource/csi_camera_pkg
+test/test_copyright.py
+test/test_flake8.py
+test/test_pep257.py

@@ -8,7 +8,7 @@ class WebcamNode(Node):
     def __init__(self):
         super().__init__('webcam_node')
         self.timer = self.create_timer(0.1, self.timer_callback)  # 10 Hz
-        self.cap = cv2.VideoCapture(0)
+        self.cap = cv2.VideoCapture(2)
 
     def timer_callback(self):
         ret, frame = self.cap.read()

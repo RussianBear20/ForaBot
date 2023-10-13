@@ -1,0 +1,24 @@
+[1.930s] Invoking command in '/home/aros/ForaBotResearch/ros2_foxy_workspace/src/csi_camera_pkg': PYTHONPATH=/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/prefix_override:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/csi_camera_pkg build --build-base /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build install --record /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/install.log --install-scripts $base/lib/csi_camera_pkg --single-version-externally-managed
+[2.356s] running egg_info
+[2.357s] writing ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/PKG-INFO
+[2.358s] writing dependency_links to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/dependency_links.txt
+[2.358s] writing entry points to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/entry_points.txt
+[2.359s] writing requirements to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/requires.txt
+[2.359s] writing top-level names to ../../build/csi_camera_pkg/csi_camera_pkg.egg-info/top_level.txt
+[2.420s] reading manifest file '../../build/csi_camera_pkg/csi_camera_pkg.egg-info/SOURCES.txt'
+[2.422s] writing manifest file '../../build/csi_camera_pkg/csi_camera_pkg.egg-info/SOURCES.txt'
+[2.423s] running build
+[2.423s] running build_py
+[2.423s] copying csi_camera_pkg/csi_camera_node.py -> /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build/lib/csi_camera_pkg
+[2.423s] running install
+[2.425s] running install_lib
+[2.426s] copying /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build/lib/csi_camera_pkg/csi_camera_node.py -> /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg
+[2.427s] byte-compiling /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg/csi_camera_node.py to csi_camera_node.cpython-38.pyc
+[2.430s] running install_data
+[2.431s] running install_egg_info
+[2.434s] removing '/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg-0.0.0-py3.8.egg-info' (and everything under it)
+[2.435s] Copying ../../build/csi_camera_pkg/csi_camera_pkg.egg-info to /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages/csi_camera_pkg-0.0.0-py3.8.egg-info
+[2.437s] running install_scripts
+[2.471s] Installing csi_camera_node script to /home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/csi_camera_pkg
+[2.472s] writing list of installed files to '/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/install.log'
+[2.527s] Invoked command in '/home/aros/ForaBotResearch/ros2_foxy_workspace/src/csi_camera_pkg' returned '0': PYTHONPATH=/home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/prefix_override:/home/aros/ForaBotResearch/ros2_foxy_workspace/install/csi_camera_pkg/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base ../../build/csi_camera_pkg build --build-base /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/build install --record /home/aros/ForaBotResearch/ros2_foxy_workspace/build/csi_camera_pkg/install.log --install-scripts $base/lib/csi_camera_pkg --single-version-externally-managed
