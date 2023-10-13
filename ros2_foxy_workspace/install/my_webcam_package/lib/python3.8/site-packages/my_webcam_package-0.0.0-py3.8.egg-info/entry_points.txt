@@ -1,0 +1,3 @@
+[console_scripts]
+webcam_node = my_webcam_package.webcam_node:main
+
