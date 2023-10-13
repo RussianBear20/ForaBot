@@ -1,6 +1,7 @@
 import rclpy
 from rclpy.node import Node
 import gi
+import threading
 gi.require_version('Gst', '1.0')
 from gi.repository import Gst
 
@@ -17,21 +18,29 @@ class CSICameraNode(Node):
         self.pipeline.set_state(Gst.State.PLAYING)
         self.get_logger().info("CSI Camera Node is running...")
 
-    def __del__(self):
+        # Schedule a function to stop the pipeline after 10 seconds
+        threading.Timer(10.0, self.shutdown_pipeline).start()
+
+    def shutdown_pipeline(self):
         self.pipeline.set_state(Gst.State.NULL)
         self.get_logger().info("CSI Camera Node is shutting down...")
+        rclpy.shutdown()
+
+def spin(node):
+    rclpy.spin(node)
 
 def main(args=None):
     rclpy.init(args=args)
     node = CSICameraNode()
 
     try:
-        rclpy.spin(node)
+        thread = threading.Thread(target=spin, args=(node,))
+        thread.start()
+        thread.join()
     except KeyboardInterrupt:
         pass
 
     node.destroy_node()
-    rclpy.shutdown()
 
 if __name__ == '__main__':
     main()
