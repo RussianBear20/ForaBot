@@ -10,7 +10,7 @@ and then after that all packages must be built with
 ~/ForabotResearch/ros2_foxy_workspace$ colcon build -packages--select <package names>
 ~/ForabotResearch/ros2_foxy_workspace$ source ./install/setup.bash
 
-
+To fully understand the new code and be able to translate it, I recommend learning ROS2 at https://www.theconstructsim.com/ 
 
 ## Related publications
 Richmond, T. et al. (2022) “Forabot: Automated planktic foraminifera isolation and imaging,” Geochemistry, Geophysics, Geosystems [Preprint]. Available at: https://doi.org/10.1029/2022gc010689. 
