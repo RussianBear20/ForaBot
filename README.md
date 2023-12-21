@@ -11,6 +11,6 @@ and then after that all packages must be built with
 ~/ForabotResearch/ros2_foxy_workspace$ source ./install/setup.bash
 
 To fully understand the new code and be able to translate it, I recommend learning ROS2 at https://www.theconstructsim.com/ The next steps are to fully translate the code found in ForaBotResearch/OldCode to ROS2. 
-
+Also the most correct version of ForaBotResearch/OldCode is on the RPI in the lab attached to the robot. OldCode is a more intensively commented version of that code.
 ## Related publications
 Richmond, T. et al. (2022) “Forabot: Automated planktic foraminifera isolation and imaging,” Geochemistry, Geophysics, Geosystems [Preprint]. Available at: https://doi.org/10.1029/2022gc010689. 
